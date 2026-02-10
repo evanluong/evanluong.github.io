@@ -36,11 +36,16 @@ noBtn.addEventListener('click', () => {
   // Increase yes button size
   yesBtnSize += 0.5;
   yesBtn.style.transform = `scale(${yesBtnSize})`;
-  yesBtn.style.padding = `${15 * yesBtnSize}px ${30 * yesBtnSize}px`;
   
-  // Move no button to the right to keep it clickable
-  const offset = 50 * noClickCount;
-  noBtn.style.transform = `translateX(${offset}px)`;
+  // Calculate the growing width of the yes button and position no button next to it
+  const yesBtnRect = yesBtn.getBoundingClientRect();
+  const gap = 20; // gap between buttons
+  const containerRect = questionContainer.getBoundingClientRect();
+  const yesBtnCenter = containerRect.width / 2;
+  const offset = (yesBtnRect.width / 2) + gap;
+  
+  noBtn.style.position = 'absolute';
+  noBtn.style.left = `calc(50% + ${offset}px)`;
   
   // Change no button text
   if (noClickCount < noMessages.length) {
